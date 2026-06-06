@@ -1,0 +1,48 @@
+# === BEGIN JARVIS IMPORTS (managed by bootstrap.sh) ===
+# SOUL — persona, autonomie, ton, action, self-validation (consolidation depuis Hermes)
+@__HOME__/Documents/Obsidian/vault/Claude/Memory/jarvis_soul.md
+# Les fichiers feedback_role_jarvis.md / feedback_autonomie_jarvis.md / feedback_precision_discretion.md
+# / feedback_action_proactive.md / feedback_self_visual_validation.md sont consolidés dans jarvis_soul.md.
+# Ils restent en archive dans Memory/ pour traçabilité mais ne sont plus auto-loaded.
+
+# Profil & contexte
+@__HOME__/Documents/Obsidian/vault/Claude/Memory/profil.md
+
+# Décisions structurantes (choix datés à respecter et à ne pas re-débattre)
+@__HOME__/Documents/Obsidian/vault/Claude/Memory/decisions.md
+
+# Workflows & règles d'engagement (consolidé 2026-05-08 — remplace 8 ex-feedback_*.md)
+# Couvre : périmètre projets, accès code, organisation vault, conventions archives, sessions parallèles,
+# scope d'instruction, workflow Notion, git email.
+@__HOME__/Documents/Obsidian/vault/Claude/Memory/agents.md
+
+# Capacités & autonomie : inventaire MCP, scripts locaux, ce que Jarvis NE peut PAS faire
+@__HOME__/Documents/Obsidian/vault/Claude/Memory/tools.md
+
+# Aspirations long-arc (liberté financière, Agency, SideBrand, ShopApp, body, voyages Asie)
+@__HOME__/Documents/Obsidian/vault/Claude/Memory/dreams.md
+
+# WARM (descendus 2026-05-20 après review Leo — ~42 KB économisés en HOT) :
+#   - heartbeat.md → triggers "routine/cron/launchagent/jarvis jour|hebdo|...|memory-sync/watchtower"
+#   - reference_platform.md → triggers "agency-app/client/audit/handoff" ou cwd GIT PROD/agency-app/
+#   - lessons.md → triggers "leçon/post-mortem/incident/lessons §N"
+#   - reference_notion_second_cerveau.md → triggers "Notion/page Notion/wiki/Inbox Jarvis"
+# Doctrine WARM dans Memory/agents.md §10.
+
+# Index auto-régénéré du vault Obsidian (carte du second cerveau)
+# Régénéré quotidiennement par jarvis-vault-index-build (appelé par jarvis-brief.sh à 7h30).
+@__HOME__/Documents/Obsidian/vault/_vault-index.md
+
+# Index des skills auto-promus (Memory/auto/) — pattern Hermes-like.
+# Patterns détectés automatiquement par routine eval ou hook session-recap.
+# Pas de validation préalable. Audit purge au cycle eval suivant si jamais déclenché.
+# Régénéré par jarvis-skills-bundle (appelé par jarvis-brief.sh à 7h30).
+@__HOME__/Documents/Obsidian/vault/Claude/Memory/auto/_index.md
+
+# Doc des sous-systèmes Jarvis : non-auto-loadée. À lire à la demande dans :
+#   __HOME__/Documents/GIT PROD/manin-jarvis/docs/
+
+# lessons.md (post-mortem cumulatif) : descendu en WARM 2026-05-20 (~27 KB).
+# Lire sur trigger : "leçon", "post-mortem", "incident", "qu'est-ce qu'on a appris", "§N".
+# Path : __HOME__/Documents/GIT PROD/manin-jarvis/lessons.md
+# === END JARVIS IMPORTS ===

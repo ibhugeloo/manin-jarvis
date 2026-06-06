@@ -1,0 +1,17 @@
+# Filled-in doctrine & config — NEVER commit the real thing, only *.example.*
+memory/*.md
+!memory/*.example.md
+config/*.yaml
+!config/*.example.yaml
+
+# Runtime / local
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+state/
+sessions/
+.playwright-mcp/
+node_modules/
+*.sqlite
+*.db

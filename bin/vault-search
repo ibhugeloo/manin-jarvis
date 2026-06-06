@@ -1,0 +1,111 @@
+#!/bin/zsh
+# vault-search — Recherche "sémantique légère" sur le vault Obsidian vault
+# Principe : LLM expand la requête en 10 termes connexes, puis ripgrep
+# Usage : vault-search "<question en langage naturel>"
+
+set -uo pipefail
+
+VAULT="$HOME/Documents/Obsidian/vault"
+CLAUDE_BIN="$HOME/.local/bin/claude"
+
+if [[ $# -eq 0 ]]; then
+  cat <<EOF
+Usage: vault-search "<question en langage naturel>"
+
+Exemples :
+  vault-search "où sont mes credentials d'alternance"
+  vault-search "trail à Mafate"
+  vault-search "comment je gère les backups Proxmox"
+  vault-search "stratégie investissement votre broker"
+
+Le script utilise Claude Haiku pour expandre votre requête en termes connexes,
+puis lance ripgrep sur le vault. Latence typique : 5-10s.
+EOF
+  exit 1
+fi
+
+QUERY="$*"
+
+if [[ ! -x "$CLAUDE_BIN" ]]; then
+  echo "❌ Binaire claude introuvable à $CLAUDE_BIN" >&2
+  exit 1
+fi
+
+if ! command -v rg >/dev/null 2>&1; then
+  echo "❌ ripgrep (rg) requis. Installer via : brew install ripgrep" >&2
+  exit 1
+fi
+
+EXPANSION_PROMPT="Pour la requête de recherche personnelle ci-dessous, génère exactement 10 termes ou expressions courts (1-3 mots chacun) susceptibles d'apparaître dans des notes Markdown personnelles en français traitant de ce sujet.
+
+Règles :
+- Inclure synonymes, abréviations courantes (ex: 'mot de passe' → 'MDP', 'password')
+- Inclure variantes orthographiques et anglicismes plausibles
+- Inclure jargon métier si pertinent
+- Termes courts et discriminants (pas 'le', 'la', 'et', 'avoir', etc.)
+- Format strict : un terme par ligne, rien d'autre (pas de numérotation, pas de tirets, pas d'explications)
+
+Requête : $QUERY"
+
+echo "🔍 Expansion de la requête via Claude Haiku..." >&2
+
+TERMS=$(printf '%s' "$EXPANSION_PROMPT" \
+  | "$CLAUDE_BIN" --print --model haiku --output-format text 2>/dev/null \
+  | awk 'NF' \
+  | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+  | sed 's/^[-•*][[:space:]]*//' \
+  | sed 's/^[0-9]\+[.)][[:space:]]*//' \
+  | grep -v '^$' \
+  | head -10)
+
+if [[ -z "$TERMS" ]]; then
+  echo "⚠️  Expansion échouée — fallback sur la requête brute." >&2
+  TERMS="$QUERY"
+fi
+
+# Construire pattern ripgrep (alternation case-insensitive)
+PATTERN=$(printf '%s' "$TERMS" | paste -sd'|' -)
+
+echo "" >&2
+echo "═══════════════════════════════════════════════════════════════" >&2
+echo "📚 Termes générés :" >&2
+printf '%s\n' "$TERMS" | sed 's/^/   • /' >&2
+echo "═══════════════════════════════════════════════════════════════" >&2
+echo "" >&2
+
+RESULTS=$(rg --no-heading \
+   --line-number \
+   --smart-case \
+   --max-count=3 \
+   --context=1 \
+   --type=md \
+   --glob='!.obsidian/**' \
+   --glob='!.trash/**' \
+   --glob='!Brief/**' \
+   "$PATTERN" \
+   "$VAULT" 2>/dev/null | head -200)
+
+if [[ -z "$RESULTS" ]]; then
+  echo "⚠️  Aucun résultat dans $VAULT. Essayez une formulation différente." >&2
+  exit 0
+fi
+
+# Couleur uniquement si stdout est un terminal
+if [[ -t 1 ]]; then
+  COLOR_FLAG="--color=always"
+else
+  COLOR_FLAG="--color=never"
+fi
+
+rg --no-heading \
+   --line-number \
+   --smart-case \
+   --max-count=3 \
+   --context=1 \
+   --type=md \
+   --glob='!.obsidian/**' \
+   --glob='!.trash/**' \
+   --glob='!Brief/**' \
+   $COLOR_FLAG \
+   "$PATTERN" \
+   "$VAULT" 2>/dev/null | head -200
