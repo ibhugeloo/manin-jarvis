@@ -94,7 +94,7 @@ le boss a trois assistants IA distincts, chacun avec un périmètre net. Ce docu
 |---|---|---|
 | `jarvis` | `manin-jarvis/bin/jarvis` | `~/.local/bin/jarvis` |
 | `alfred` | `manin-jarvis/bin/alfred` | `~/.local/bin/alfred` |
-| `leo` | `manin-jarvis/bin/leo` | `~/.local/bin/leo` (copie) — SSH `root@<homelab-host>` → `pct exec 205 hermes -z` |
+| `leo` | `manin-jarvis/bin/leo` | `~/.local/bin/leo` (copie) — SSH `root@<homelab-host>` → `pct exec <your-lxc-ctid> hermes -z` |
 | `leo-codex` | `manin-jarvis/bin/leo-codex` | `~/.local/bin/leo-codex` (copie) — fallback Codex V1 si Hermes down |
 
 ---

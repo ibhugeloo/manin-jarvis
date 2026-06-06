@@ -19,7 +19,7 @@ Leo est le **pair non-Claude de Jarvis** : un cerveau OpenAI GPT-5.5 auto-héber
 | Élément | Valeur |
 |---|---|
 | Produit | **Hermes Agent** (Nous Research) |
-| Hébergement | LXC <your-lxc-id> `hermes` · `<llm-lxc-ip>` · VLAN 20 · Srv1 (homelab Proxmox) |
+| Hébergement | LXC <your-lxc-id> `hermes` · `<llm-lxc-ip>` · VLAN <your-vlan> · Srv1 (homelab Proxmox) |
 | Cerveau | **OpenAI GPT-5.5** (provider `openai-codex`, abo ChatGPT du boss) |
 | Persona / SOUL | `/root/.hermes/SOUL.md` (vit dans le LXC, édité côté Hermes) |
 | Mémoire | **Persistante** côté LXC + **clone read-only de `jarvis-memory`** |
@@ -103,7 +103,7 @@ leo --context <fichier> "<question>"  # injecte un fichier comme contexte (-c)
 leo --deep "<question>"               # analyse approfondie (-d)
 # --model / --provider ignorés : Hermes gère le modèle (GPT-5.5)
 ```
-Le wrapper `~/.local/bin/leo` fait un SSH `root@<homelab-host>` → `pct exec 205 hermes -z`. La persona est chargée **côté Hermes** (le wrapper n'injecte aucun prompt).
+Le wrapper `~/.local/bin/leo` fait un SSH `root@<homelab-host>` → `pct exec <your-lxc-ctid> hermes -z`. La persona est chargée **côté Hermes** (le wrapper n'injecte aucun prompt).
 
 ### Leo → Jarvis (pont mémoire)
 `jarvis leo-sync` (auto 23h00, LaunchAgent `com.example.jarvis.leo-sync`) demande à Leo un récap de ses échanges Telegram avec le boss et l'écrit dans `Obsidian/vault/Brief/leo-feed.md` (plus récent en haut). Jarvis lit ce feed au démarrage de session (injecté par le hook SessionStart si ≤ 3 jours). **Local, fiable, 0 token Anthropic.**

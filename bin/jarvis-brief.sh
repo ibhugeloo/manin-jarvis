@@ -33,7 +33,7 @@ fi
 # Charge le PATH minimal (launchd a un PATH très restreint par défaut)
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
-# Charge les secrets centralisés (SYSTM_API_TOKEN, etc.) si présents
+# Charge les secrets centralisés (AGENCY_API_TOKEN, etc.) si présents
 SECRETS_ENV="$HOME/.config/jarvis/secrets/env"
 if [[ -f "$SECRETS_ENV" ]]; then
   set -a

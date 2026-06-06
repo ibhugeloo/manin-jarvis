@@ -38,11 +38,11 @@ Garder 3-5 items max, ce qui est **vraiment notable** (sortie de modèle, foncti
 ## 3. Finance — pour ses positions
 
 **Portefeuille connu du boss** (du profil) :
-- PEA : ETF S&P500, Nasdaq100
-- CTO : NVDA, GOOG, AMZN, META, Hermès, Mastercard, S&P Global
-- BTC via Revolut Metal arrondis
+- Compte fiscal avantageux : ETF indiciels larges
+- Compte-titres : actions individuelles (tech, luxe, fintech)
+- BTC (épargne automatique sur arrondis)
 
-WebSearch : "NVDA earnings news", "S&P 500 today", "Hermès stock", "MA Mastercard news", "BTC price news".
+WebSearch : "<ticker> earnings news", "S&P 500 today", "BTC price news" (un par position listée dans le profil).
 Format pour chaque : ticker + variation 7j + 1 ligne du catalyseur s'il y en a un.
 Si rien de notable : `_marché stable cette semaine_`.
 

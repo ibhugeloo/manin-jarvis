@@ -70,6 +70,8 @@ backup_file() {
   if [[ -f "$f" && ! -L "$f" ]]; then
     cp "$f" "$f.bak.$(date +%Y%m%d-%H%M%S)"
     info "Backup : $f.bak.*"
+    # Rotation : ne garder que les 5 backups les plus récents (évite l'accumulation, cf. leçon #20)
+    ls -t "$f".bak.* 2>/dev/null | tail -n +6 | xargs rm -f 2>/dev/null || true
   fi
 }
 
@@ -426,6 +428,39 @@ if [[ -d "$COMMANDS_SRC" ]]; then
   done
 else
   ok "Aucun slash command à déployer (claude-config/commands/ absent)"
+fi
+
+step "Rules path-scoped Claude Code (.claude/rules/)"
+RULES_SRC="$JARVIS_SRC/claude-config/rules"
+RULES_DST="$CLAUDE_CONFIG/rules"
+
+if [[ -d "$RULES_SRC" ]]; then
+  mkdir -p "$RULES_DST"
+  for rule in "$RULES_SRC"/*.md; do
+    [[ -f "$rule" ]] || continue
+    name=$(basename "$rule")
+    cp "$rule" "$RULES_DST/$name"
+    ok "Rule path-scoped : $name"
+  done
+else
+  ok "Aucune rule à déployer (claude-config/rules/ absent)"
+fi
+
+step "Skills Claude Code (.claude/skills/)"
+SKILLS_SRC="$JARVIS_SRC/claude-config/skills"
+SKILLS_DST="$CLAUDE_CONFIG/skills"
+
+if [[ -d "$SKILLS_SRC" ]]; then
+  mkdir -p "$SKILLS_DST"
+  for skill_dir in "$SKILLS_SRC"/*/; do
+    [[ -d "$skill_dir" ]] || continue
+    name=$(basename "$skill_dir")
+    mkdir -p "$SKILLS_DST/$name"
+    cp -R "$skill_dir"* "$SKILLS_DST/$name/"
+    ok "Skill : $name"
+  done
+else
+  ok "Aucun skill à déployer (claude-config/skills/ absent)"
 fi
 
 step "Imports CLAUDE.md"

@@ -59,13 +59,13 @@ Top 5 actions les plus pertinentes (priorité au contexte récent).
 Source : endpoint dédié `GET /api/jarvis/summary` exposé par agency-app. Cf. `Memory/reference_platform.md` pour le contexte tables/workflow.
 
 Étapes :
-1. Lire `SYSTM_API_BASE` et `SYSTM_API_TOKEN` depuis l'env (posés par le LaunchAgent du brief — fallback `https://agency-app` si absent).
+1. Lire `AGENCY_API_BASE` et `AGENCY_API_TOKEN` depuis l'env (posés par le LaunchAgent du brief — fallback `https://agency-app` si absent).
 2. Exécuter via Bash :
 
 ```bash
 curl -sS --fail-with-body --max-time 10 \
-  -H "Authorization: Bearer ${SYSTM_API_TOKEN}" \
-  "${SYSTM_API_BASE:-https://agency-app}/api/jarvis/summary"
+  -H "Authorization: Bearer ${AGENCY_API_TOKEN}" \
+  "${AGENCY_API_BASE:-https://agency-app}/api/jarvis/summary"
 ```
 
 3. Parser le JSON retourné — schéma stable :

@@ -16,18 +16,15 @@
 # scope d'instruction, workflow Notion, git email.
 @__HOME__/Documents/Obsidian/vault/Claude/Memory/agents.md
 
-# Capacités & autonomie : inventaire MCP, scripts locaux, ce que Jarvis NE peut PAS faire
-@__HOME__/Documents/Obsidian/vault/Claude/Memory/tools.md
-
-# Aspirations long-arc (liberté financière, Agency, SideBrand, ShopApp, body, voyages Asie)
-@__HOME__/Documents/Obsidian/vault/Claude/Memory/dreams.md
-
+# WARM (descendus 2026-06-06 — HOT -29 KB ; mapping triggers dans Memory/agents.md §10) :
+#   - tools.md → triggers "MCP/script/outil/Leo/Alfred/capacité/que peux-tu faire/Coolify/token"
+#   - dreams.md → triggers "objectif/aspiration/long terme/liberté financière/routine mensuel|eval/arbitrage"
 # WARM (descendus 2026-05-20 après review Leo — ~42 KB économisés en HOT) :
 #   - heartbeat.md → triggers "routine/cron/launchagent/jarvis jour|hebdo|...|memory-sync/watchtower"
 #   - reference_platform.md → triggers "agency-app/client/audit/handoff" ou cwd GIT PROD/agency-app/
 #   - lessons.md → triggers "leçon/post-mortem/incident/lessons §N"
 #   - reference_notion_second_cerveau.md → triggers "Notion/page Notion/wiki/Inbox Jarvis"
-# Doctrine WARM dans Memory/agents.md §10.
+# Doctrine WARM dans Memory/agents.md §10. Doctrine projet path-scoped : ~/.claude/rules/*.md (paths:).
 
 # Index auto-régénéré du vault Obsidian (carte du second cerveau)
 # Régénéré quotidiennement par jarvis-vault-index-build (appelé par jarvis-brief.sh à 7h30).

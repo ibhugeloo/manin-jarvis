@@ -43,7 +43,7 @@ source: /observe (en séance, contexte complet)
 
 **Pattern observé** : <description en 1-2 lignes, le quoi>
 
-**Indices** : <2-3 signaux CONCRETS de cette session — citations, nombre d'occurrences, ce qu'le boss a dit/fait. Précis, pas vague.>
+**Indices** : <2-3 signaux CONCRETS de cette session — citations, nombre d'occurrences, ce que le boss a dit/fait. Précis, pas vague.>
 
 **Si validé, à promouvoir vers** : profil.md / agents.md / jarvis_soul.md / feedback_<sujet>.md
 ```
