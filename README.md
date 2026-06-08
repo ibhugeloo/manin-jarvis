@@ -366,6 +366,9 @@ Honest about the gaps:
 - **Self-validate before reporting.** "Tests pass" is not "ready for production."
 - **Consolidate, don't accumulate.** A fact lives in exactly one place; everything else links to it.
 
+The full, actionable list is in [**BEST-PRACTICES.md**](./BEST-PRACTICES.md) — the operating
+doctrine, each rule with the incident behind it.
+
 ---
 
 ## License
