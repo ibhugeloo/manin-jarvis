@@ -99,10 +99,10 @@ if [[ -n "$CONTEXT_FILE" ]]; then
     echo "Erreur: fichier contexte introuvable: $CONTEXT_FILE" >&2
     exit 1
   fi
-  PROMPT="$(printf '%s\n\n=== QUESTION D'\''BOSS ===\n%s\n\n=== CONTEXTE INJECTÉ ===\n%s' \
+  PROMPT="$(printf '%s\n\n=== QUESTION DU BOSS ===\n%s\n\n=== CONTEXTE INJECTÉ ===\n%s' \
     "$SYSTEM_PROMPT" "$QUESTION" "$(cat "$CONTEXT_FILE")")"
 else
-  PROMPT="$(printf '%s\n\n=== QUESTION D'\''BOSS ===\n%s' "$SYSTEM_PROMPT" "$QUESTION")"
+  PROMPT="$(printf '%s\n\n=== QUESTION DU BOSS ===\n%s' "$SYSTEM_PROMPT" "$QUESTION")"
 fi
 
 TMP_OUT="$(mktemp -t leo-out-XXXXXX)"

@@ -191,6 +191,25 @@ What I think is actually mine:
 
 ---
 
+## Tech stack
+
+Nothing exotic — the point is the *architecture*, not the dependencies.
+
+| Layer | What it is |
+|-------|-----------|
+| **Brain / memory** | An [Obsidian](https://obsidian.md) vault of Markdown, `@import`-ed into context — mirrored nightly to **git** (the canon) |
+| **Builder runtime** | [Claude Code](https://claude.com/claude-code) (Anthropic) on macOS — tiered memory loaded per session |
+| **Engine** | ~30 **zsh/bash** scripts (dispatcher, routines, hooks, guards, UI server) + **Python 3** for the heavier bits |
+| **Semantic vault search** | `sqlite-vec` + `sentence-transformers` — local embeddings, fully offline |
+| **Mission OS** | **FastAPI** + Pydantic + **SQLite** — bounded tasks with persistent state |
+| **Control surface** | Claude Code **hooks** + **slash commands** + **path-scoped rules**, all wired by `bootstrap.sh` |
+| **Scheduling** | macOS **launchd** templates (opt-in — every model-calling cron is off by default) |
+| **The other runtimes** | **Leo** = a self-hosted [Nous Research Hermes](https://nousresearch.com) agent over **Telegram**; **Alfred** = a homelab sysadmin |
+
+macOS-first by design (launchd, `~/.local/bin`, shell hooks). No build step, no framework lock-in — it's scripts, Markdown, and a couple of small Python services.
+
+---
+
 ## What's in the box
 
 ```
@@ -204,6 +223,35 @@ LaunchAgents/← macOS launchd templates for the scheduled routines (opt-in)
 mos/         ← Mission OS: bounded tasks with state (FastAPI + SQLite)
 tests/       ← doctrine scenarios — the persona's rules are *tested*, not just written
 ```
+
+---
+
+## Command reference
+
+Everything the model does, it does because I typed one of these. No hidden cron calls the LLM.
+
+**Dispatcher** (`jarvis <verb>` — strictly manual):
+
+| Command | What it does |
+|---------|-------------|
+| `jarvis jour` | Morning brief — calendar, important mail, repo git state, vault to-dos, client activity |
+| `jarvis hebdo` / `mensuel` | Weekly review / monthly retrospective |
+| `jarvis veille` | Daily watch pass |
+| `jarvis evaluation` | Self-review — detect recurring patterns, propose doctrine promotions |
+| `jarvis watchtower` | Prod health of client projects (Sentry / Vercel / Supabase) |
+| `jarvis finance` | Earnings analysis of the tracked portfolio |
+| `jarvis tech-watch` | External agentic / Claude Code watch |
+| `jarvis notion-sync` | Pull Notion → vault (≈ monthly) |
+| `jarvis memory-sync` | Mirror the memory vault to private git |
+
+**Slash commands** (inside a Claude Code session):
+
+| Command | What it does |
+|---------|-------------|
+| `/jarvis-ship` | Gated delivery pipeline — Research → Plan → Execute → Review → Ship |
+| `/jarvis-jour` · `/jarvis-watchtower` · `/jarvis-finance` · `/jarvis-tech-watch` · `/jarvis-audit` | Run the matching routine in-session |
+| `/observe` | Capture a user-model observation into the doctrine |
+| `/save` | Snapshot the current session into the vault |
 
 ---
 
@@ -289,6 +337,23 @@ for f in config/*.example.yaml; do cp "$f" "${f%.example.yaml}.yaml"; done
 
 > **Not on a Mac?** The engine assumes macOS (launchd, `~/.local/bin`, shell hooks). Linux
 > works with minor tweaks; Windows needs WSL — both are advanced and undocumented for now.
+
+---
+
+## Roadmap — what's not done yet
+
+Honest about the gaps:
+
+- **Cross-platform.** The engine assumes macOS (launchd, `~/.local/bin`, shell hooks). Linux
+  needs minor tweaks; Windows needs WSL — both undocumented for now.
+- **A real restore drill.** "git is the safety net" should be *proven*, not assumed: fresh
+  clone → `bootstrap.sh` dry-run → verify HOT/WARM/rules/imports all rehydrate. Not yet a routine.
+- **Native vault dashboards.** Querying projects/decisions live (Obsidian Bases) instead of
+  reading a static index — POC stage.
+- **Opportunistic web extraction.** A content pre-filter with a fetch fallback, source-tagged,
+  so research notes carry provenance.
+- **Command ↔ headless-prompt sync.** A slash command and its cron-mode prompt can drift
+  silently — they need a shared source to stay honest.
 
 ---
 
