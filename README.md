@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/logo-manin.png" alt="manin-control-room logo" width="160">
+</p>
+
 # 🤖 manin-control-room
 
 ![runs on Claude Code](https://img.shields.io/badge/runs_on-Claude_Code-d97757)
