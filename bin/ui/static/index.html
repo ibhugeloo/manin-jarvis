@@ -97,55 +97,176 @@ body::before {
   to { transform: translateX(20px) translateY(-20px); }
 }
 
+/* App-shell — sidebar gauche + zone active au centre */
 main {
   position: relative;
   z-index: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 32px 96px;
-  scroll-padding-top: 80px;
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
 }
 
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html { scroll-behavior: smooth; }
 
-/* Header — sticky top bar */
-header {
+/* === Sidebar — toutes les sections, compact === */
+.sidebar {
   position: sticky;
   top: 0;
-  z-index: 50;
+  align-self: flex-start;
+  height: 100vh;
+  width: 230px;
+  flex: 0 0 230px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin: 0 -32px 40px;
-  padding: 16px 32px;
-  background: color-mix(in oklab, var(--bg) 88%, transparent);
-  -webkit-backdrop-filter: saturate(150%) blur(14px);
-  backdrop-filter: saturate(150%) blur(14px);
-  border-bottom: 1px solid var(--border-soft);
+  flex-direction: column;
+  gap: 3px;
+  padding: 22px 14px 16px;
+  background: color-mix(in oklab, var(--surface-warm) 55%, var(--bg));
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
 }
 
-/* Nav links inside header */
-.zone-nav {
+.sidebar .brand {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 2px 10px 20px;
+  text-decoration: none;
+  border-bottom: none;
+  color: inherit;
+}
+.sidebar .brand h1 { font-size: 23px; }
+.sidebar .brand .brand-mark { width: 16px; height: 23px; font-size: 29px; }
+.sidebar .brand .brand-mark::after { left: 10px; top: -3px; width: 4px; height: 4px; }
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.side-nav a {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin: 0 auto;
+  gap: 11px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: none;
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 450;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 160ms var(--ease), color 160ms var(--ease);
 }
-.zone-nav a {
+.side-nav a svg { width: 16px; height: 16px; flex: 0 0 16px; opacity: 0.65; transition: opacity 160ms, color 160ms; }
+.side-nav a .side-hint {
+  margin-left: auto;
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 9px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--muted);
-  text-decoration: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: color 180ms var(--ease), background 180ms var(--ease);
+  opacity: 0;
+  transition: opacity 160ms;
 }
-.zone-nav a:hover { color: var(--ink); background: var(--surface-warm); }
-.zone-nav a.active { color: var(--ink); background: var(--surface-warm); }
-@media (max-width: 980px) { .zone-nav { display: none; } }
+.side-nav a:hover { background: var(--surface-warm); color: var(--ink); }
+.side-nav a:hover svg { opacity: 1; }
+.side-nav a.active {
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 550;
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.side-nav a.active svg { opacity: 1; color: #EC6A31; }
+.side-nav a.active .side-hint { opacity: 1; }
+
+.side-foot {
+  margin-top: auto;
+  padding: 14px 8px 2px;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.side-foot .meta-item { font-size: 11px; }
+
+/* === Content — uniquement la zone active === */
+.content {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 1280px;
+  padding: 34px 40px 80px;
+}
+
+.zone-panel { display: none; }
+.zone-panel.active { display: block; animation: fadeIn 420ms var(--ease) both; }
+
+.zone-panel-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 0 0 26px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.zone-panel-head h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+  color: var(--ink);
+}
+.zone-panel-head .zone-hint {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Sidebar → barre supérieure horizontale sur écran étroit */
+@media (max-width: 900px) {
+  main { flex-direction: column; }
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: auto;
+    width: auto;
+    flex: none;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    z-index: 50;
+    overflow-x: auto;
+    -webkit-backdrop-filter: saturate(150%) blur(12px);
+    backdrop-filter: saturate(150%) blur(12px);
+    background: color-mix(in oklab, var(--bg) 90%, transparent);
+  }
+  .sidebar .brand { padding: 0 6px 0 4px; flex: 0 0 auto; }
+  .side-nav { flex-direction: row; gap: 4px; flex: 1 1 auto; }
+  .side-nav a { padding: 7px 10px; white-space: nowrap; }
+  .side-nav a .side-hint { display: none; }
+  .side-foot {
+    margin: 0 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    border-top: none;
+    padding: 0 2px;
+    gap: 12px;
+    flex: 0 0 auto;
+  }
+}
+@media (max-width: 620px) {
+  .side-nav a .side-label { display: none; }
+  .side-foot #time-now { display: none; }
+  .zone-panel-head h2 { font-size: 24px; }
+}
 
 .brand {
   display: flex;
@@ -223,6 +344,26 @@ header {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 16px;
+  align-items: start;
+}
+
+/* Zone Mémoire — Télémétrie pleine hauteur à gauche, Mémoire + Sessions empilées à droite */
+@media (min-width: 1101px) {
+  .zone-panel[data-zone="memory"] .bento {
+    grid-template-columns: 5fr 7fr;
+  }
+  .zone-panel[data-zone="memory"] .card-telemetry {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .zone-panel[data-zone="memory"] .card-memory {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .zone-panel[data-zone="memory"] .card-sessions {
+    grid-column: 2;
+    grid-row: 2;
+  }
 }
 
 .card {
@@ -1635,33 +1776,49 @@ a:hover { border-bottom-color: var(--ink); }
 </head>
 <body>
 <main>
-  <header>
-    <a class="brand" href="/" aria-label="Jarvis — Control Room" style="text-decoration:none;color:inherit">
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="Jarvis — Control Room">
       <span class="brand-mark" aria-hidden="true">J</span>
       <h1>arvis</h1>
     </a>
-    <nav class="zone-nav" aria-label="Navigation zones">
-      <a href="#today" data-zone="today">Aujourd'hui</a>
-      <a href="#code" data-zone="code">Code</a>
-      <a href="#surveillance" data-zone="surveillance">Surveillance</a>
-      <a href="#memory" data-zone="memory">Mémoire</a>
-      <a href="#system" data-zone="system">Système</a>
+    <nav class="side-nav" aria-label="Navigation sections">
+      <a href="#today" data-zone="today">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M12 3v4M5.6 9.6 4.2 8.2M18.4 9.6l1.4-1.4M8 18a4 4 0 0 1 8 0"/></svg>
+        <span class="side-label">Aujourd'hui</span><span class="side-hint">brief</span>
+      </a>
+      <a href="#code" data-zone="code">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 7-5 5 5 5M15 7l5 5-5 5"/></svg>
+        <span class="side-label">Code</span><span class="side-hint">repos</span>
+      </a>
+      <a href="#surveillance" data-zone="surveillance">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z"/></svg>
+        <span class="side-label">Surveillance</span><span class="side-hint">prod</span>
+      </a>
+      <a href="#memory" data-zone="memory">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 13l9 5 9-5"/></svg>
+        <span class="side-label">Mémoire</span><span class="side-hint">règles</span>
+      </a>
+      <a href="#system" data-zone="system">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+        <span class="side-label">Système</span><span class="side-hint">logs</span>
+      </a>
     </nav>
-    <div class="header-meta">
-      <span class="meta-item" id="agents-counter"><span class="dot idle"></span><span>… agents</span></span>
+    <div class="side-foot">
       <span class="meta-item" id="time-now"></span>
-      <button id="theme-toggle" title="Bascule clair / sombre" aria-label="Bascule clair / sombre" style="background:none;border:1px solid var(--border);border-radius:6px;padding:6px 10px;cursor:pointer;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:0.05em;transition:color 200ms,border-color 200ms;">
+      <button id="theme-toggle" title="Bascule clair / sombre" aria-label="Bascule clair / sombre" style="background:none;border:1px solid var(--border);border-radius:6px;padding:6px 10px;cursor:pointer;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:0.05em;transition:color 200ms,border-color 200ms;align-self:flex-start;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="theme-icon" style="vertical-align:middle"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
     </div>
-  </header>
+  </aside>
 
-  <div class="bento">
+  <div class="content">
 
     <!-- ============================================================== -->
     <!-- ZONE 1 — TODAY · brief, activité, inbox                          -->
     <!-- ============================================================== -->
-    <h2 id="today" class="zone-title"><span>Aujourd'hui</span><span class="zone-hint">Briefs · activité live</span></h2>
+    <section class="zone-panel" data-zone="today">
+    <div class="zone-panel-head"><h2>Aujourd'hui</h2><span class="zone-hint">Briefs · activité live</span></div>
+    <div class="bento">
 
     <section class="card card-brief" style="animation-delay: 0ms">
       <div class="card-label">
@@ -1686,10 +1843,15 @@ a:hover { border-bottom-color: var(--ink); }
       <div id="activity-feed"></div>
     </section>
 
+    </div>
+    </section>
+
     <!-- ============================================================== -->
     <!-- ZONE 2 — CODE · repos clients/perso/tools + actions            -->
     <!-- ============================================================== -->
-    <h2 id="code" class="zone-title"><span>Code</span><span class="zone-hint">Repos clients · perso · tools · actions rapides</span></h2>
+    <section class="zone-panel" data-zone="code">
+    <div class="zone-panel-head"><h2>Code</h2><span class="zone-hint">Repos clients · perso · tools · actions rapides</span></div>
+    <div class="bento">
 
     <section class="card card-repos-client repo-dropzone" data-category="client" style="animation-delay: 100ms">
       <div class="card-label">
@@ -1723,10 +1885,15 @@ a:hover { border-bottom-color: var(--ink); }
       <div class="actions-grid" id="actions-content"></div>
     </section>
 
+    </div>
+    </section>
+
     <!-- ============================================================== -->
-    <!-- ZONE 3 — SURVEILLANCE · prod, infra, agents, bot               -->
+    <!-- ZONE 3 — SURVEILLANCE · prod, missions, infra, agents, bot     -->
     <!-- ============================================================== -->
-    <h2 id="surveillance" class="zone-title"><span>Surveillance</span><span class="zone-hint">Prod clients · domaines · agents · bot</span></h2>
+    <section class="zone-panel" data-zone="surveillance">
+    <div class="zone-panel-head"><h2>Surveillance</h2><span class="zone-hint">Prod clients · domaines · agents · bot</span></div>
+    <div class="bento">
 
     <section class="card card-watchtower" style="animation-delay: 150ms">
       <div class="card-label">
@@ -1775,10 +1942,15 @@ a:hover { border-bottom-color: var(--ink); }
       <div id="bot-content"></div>
     </section>
 
+    </div>
+    </section>
+
     <!-- ============================================================== -->
     <!-- ZONE 4 — MÉMOIRE · règles persistantes et sessions Claude       -->
     <!-- ============================================================== -->
-    <h2 id="memory" class="zone-title"><span>Mémoire</span><span class="zone-hint">Télémétrie · règles persistantes · sessions Claude</span></h2>
+    <section class="zone-panel" data-zone="memory">
+    <div class="zone-panel-head"><h2>Mémoire</h2><span class="zone-hint">Télémétrie · règles persistantes · sessions Claude</span></div>
+    <div class="bento">
 
     <section class="card card-telemetry" style="animation-delay: 290ms">
       <div class="card-label">
@@ -1804,10 +1976,15 @@ a:hover { border-bottom-color: var(--ink); }
       <div id="sessions-content"></div>
     </section>
 
+    </div>
+    </section>
+
     <!-- ============================================================== -->
     <!-- ZONE 5 — SYSTÈME · logs et activité bas-niveau                  -->
     <!-- ============================================================== -->
-    <h2 id="system" class="zone-title"><span>Système</span><span class="zone-hint">Activité bas-niveau · logs des routines</span></h2>
+    <section class="zone-panel" data-zone="system">
+    <div class="zone-panel-head"><h2>Système</h2><span class="zone-hint">Activité bas-niveau · logs des routines</span></div>
+    <div class="bento">
 
     <section class="card card-logs" style="animation-delay: 380ms">
       <div class="card-label">
@@ -1816,12 +1993,15 @@ a:hover { border-bottom-color: var(--ink); }
       <div id="logs-content"></div>
     </section>
 
-  </div>
+    </div>
+    </section>
 
-  <footer>
-    <span>Localhost · Stack Jarvis · <span id="version">v1</span></span>
-    <span class="refresh-hint">Auto-refresh 30s · <kbd>r</kbd> pour rafraîchir · <kbd>⌘K</kbd> palette</span>
-  </footer>
+    <footer>
+      <span>Localhost · Stack Jarvis · <span id="version">v1</span></span>
+      <span class="refresh-hint">Auto-refresh 30s · <kbd>r</kbd> pour rafraîchir · <kbd>⌘K</kbd> palette</span>
+    </footer>
+
+  </div>
 
   <!-- Embedded chat modal -->
   <div class="memory-modal-overlay" id="chat-overlay">
@@ -2176,7 +2356,8 @@ function renderHeader(agents) {
   const running = agents.filter(a => a.loaded).length;
   const total = agents.length;
   const allOk = running === total;
-  $('#agents-counter').innerHTML = `<span class="dot ${allOk ? '' : 'warn'}"></span><span>${running}/${total} agents</span>`;
+  const el = $('#agents-counter');
+  if (el) el.innerHTML = `<span class="dot ${allOk ? '' : 'warn'}"></span><span>${running}/${total} agents</span>`;
 }
 
 function renderTime() {
@@ -2764,7 +2945,7 @@ async function fetchAndRenderDomains() {
   }
 }
 
-// ─── Watchtower ──────────────────────────────────────────────────────────────
+
 function renderWatchtower(wt) {
   const c = $('#watchtower-content');
   const counter = $('#watchtower-counter');
@@ -3004,13 +3185,20 @@ document.addEventListener('keydown', (e) => {
 const PALETTE_GLOBAL_COMMANDS = [
   { key: 'theme', label: 'Bascule clair / sombre', icon: 'refresh', meta: 'Theme', fn: () => $('#theme-toggle').click() },
   { key: 'refresh', label: 'Rafraîchir le dashboard', icon: 'refresh', meta: 'Data', fn: () => refresh() },
+  { key: 'go-today', label: 'Aller à — Aujourd\'hui', icon: 'play', meta: 'Section', fn: () => switchZone('today') },
+  { key: 'go-code', label: 'Aller à — Code', icon: 'play', meta: 'Section', fn: () => switchZone('code') },
+  { key: 'go-surveillance', label: 'Aller à — Surveillance', icon: 'play', meta: 'Section', fn: () => switchZone('surveillance') },
+  { key: 'go-memory', label: 'Aller à — Mémoire', icon: 'play', meta: 'Section', fn: () => switchZone('memory') },
+  { key: 'go-system', label: 'Aller à — Système', icon: 'play', meta: 'Section', fn: () => switchZone('system') },
   { key: 'today-brief', label: 'Voir le brief du jour', icon: 'play', meta: 'Brief', fn: () => {
+    switchZone('today');
     activeBriefTab = 'jour';
     $$('.brief-tab').forEach(t => t.classList.toggle('active', t.dataset.key === 'jour'));
     renderBrief();
     document.querySelector('.card-brief')?.scrollIntoView({behavior: 'smooth', block: 'start'});
   }},
   { key: 'tg-conv', label: 'Voir la conversation Telegram', icon: 'play', meta: 'Bot', fn: () => {
+    switchZone('surveillance');
     document.querySelector('.card-bot')?.scrollIntoView({behavior: 'smooth', block: 'start'});
   }},
 ];
@@ -3134,31 +3322,38 @@ setInterval(renderTime, 30000);
 refresh();
 setInterval(refresh, 30000);
 
-// === Zone nav — active link highlight via IntersectionObserver ===
-(function initZoneNav() {
-  const zones = ['today','code','surveillance','memory','system'];
-  const links = new Map(
-    Array.from(document.querySelectorAll('.zone-nav a[data-zone]'))
-      .map(a => [a.dataset.zone, a])
-  );
-  if (!links.size) return;
-  const setActive = (zone) => {
-    links.forEach((a, k) => a.classList.toggle('active', k === zone));
-  };
-  setActive('today');
-  const targets = zones.map(z => document.getElementById(z)).filter(Boolean);
-  if (!targets.length) return;
-  const io = new IntersectionObserver((entries) => {
-    // Find the topmost intersecting zone-title (lowest boundingClientRect.top above the threshold)
-    let best = null;
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        if (!best || e.target.getBoundingClientRect().top < best.getBoundingClientRect().top) best = e.target;
-      }
-    });
-    if (best) setActive(best.id);
-  }, { rootMargin: '-80px 0px -55% 0px', threshold: 0 });
-  targets.forEach(t => io.observe(t));
+// === Side nav — view switcher : une seule zone visible au centre ===
+function switchZone(zone) {
+  const panels = document.querySelectorAll('.zone-panel');
+  const links = document.querySelectorAll('.side-nav a[data-zone]');
+  let matched = false;
+  panels.forEach(p => {
+    const on = p.dataset.zone === zone;
+    p.classList.toggle('active', on);
+    if (on) matched = true;
+  });
+  if (!matched) {
+    zone = 'today';
+    document.querySelector('.zone-panel[data-zone="today"]')?.classList.add('active');
+  }
+  links.forEach(a => a.classList.toggle('active', a.dataset.zone === zone));
+  try { localStorage.setItem('jarvis-zone', zone); } catch (e) {}
+  window.scrollTo({ top: 0 });
+}
+(function initSideNav() {
+  const links = document.querySelectorAll('.side-nav a[data-zone]');
+  if (!links.length) return;
+  links.forEach(a => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchZone(a.dataset.zone);
+  }));
+  let start = 'today';
+  try { const s = localStorage.getItem('jarvis-zone'); if (s) start = s; } catch (e) {}
+  if (location.hash) {
+    const h = location.hash.slice(1);
+    if (document.querySelector(`.zone-panel[data-zone="${h}"]`)) start = h;
+  }
+  switchZone(start);
 })();
 
 // === Memory browser ===
