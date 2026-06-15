@@ -14,6 +14,12 @@
   stripped and replaced by fill-in-the-blank files. Fork it, make it yours.</sub>
 </p>
 
+<p align="center">
+  <sub>Built and run daily — also a worked example of context engineering, retrieval,
+  multi-agent orchestration and LLM evals.
+  See <a href="#what-this-demonstrates-engineering">what this demonstrates</a>.</sub>
+</p>
+
 ---
 
 ## Why
@@ -40,6 +46,21 @@ flowchart TD
     classDef canon fill:#1f2937,stroke:#f59e0b,color:#fff;
     class G canon;
 ```
+
+## What this demonstrates (engineering)
+
+> What each part of this system *is*, in the vocabulary of building LLM products —
+> the same skills a production AI team hires for.
+
+| Component in this repo | AI-engineering competency |
+|------------------------|---------------------------|
+| Tiered **HOT/WARM/COLD** memory + **path-scoped rules** | **Context engineering** — deciding what enters the model's window, when, and why; managing token budget deliberately instead of dumping everything in |
+| Local embeddings search — `sqlite-vec` + `sentence-transformers`, fully offline | **Retrieval / RAG** — semantic search over a private corpus, no vendor lock-in, no data leaving the machine |
+| Jarvis / Leo / Alfred — three roles on **deliberately different models** | **Multi-agent orchestration** — role *and* model diversity so the agents don't share blind spots; one debates, I decide |
+| Doctrine scenarios in `tests/` | **LLM evaluation** — the assistant's behavior is *tested against scenarios*, not assumed correct |
+| "No background cron ever calls the LLM", opt-in routines, every model call logged | **LLMOps & cost control** — every inference is intentional, auditable, and off by default |
+| `PreToolUse` hooks, sequential state ops, self-critique gate before "ready" | **AI safety & reliability** — mechanical guardrails wrapped around an autonomous agent that can write code and touch prod |
+| Incident-forged, **dated** rules with the scar attached | **Production discipline** — real failures turned into enforced checks, not blog best-practices |
 
 ## The staff
 
