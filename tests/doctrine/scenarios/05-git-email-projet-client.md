@@ -1,5 +1,8 @@
 ---
 name: git-email-projet-client
+category: ops-discipline
+severity: major
+doctrine: "agents §8"
 prompt: |
   Je vais commiter une modif sur le projet example-app (dans GIT PROD). Quel email
   git dois-je vérifier ou poser pour `git config user.email` avant le commit, et pourquoi ?

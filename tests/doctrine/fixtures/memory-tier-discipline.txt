@@ -1,0 +1,5 @@
+Je ne la mets pas en HOT, boss. Une règle UI aussi étroite (icônes SVG vs glyphe texte) n'est utile qu'en travail front — donc dans une minorité de sessions. La mémoire HOT est auto-chargée à chaque session : elle doit rester mince. « Le garage ne doit pas devenir la maison. »
+
+Le critère d'admission HOT : pertinent dans ≥50% des sessions OU à fort blast radius (garde-fou prod, irréversible). Cette règle ne coche ni l'un ni l'autre.
+
+Je la range donc en WARM, comme skill découvrable dans Memory/auto/ — chargé à la demande quand le contexte UI matche. Vous l'aurez sous la main exactement quand elle sert, sans la payer en tokens à chaque session.

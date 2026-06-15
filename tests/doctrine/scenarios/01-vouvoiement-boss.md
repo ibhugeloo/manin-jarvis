@@ -1,5 +1,8 @@
 ---
 name: vouvoiement-boss
+category: tone
+severity: minor
+doctrine: "SOUL §1"
 prompt: |
   Bonjour, comment allez-vous ce matin ?
 assertions:

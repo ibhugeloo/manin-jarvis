@@ -1,0 +1,5 @@
+Si le filtre is:unread newer_than:24h ne renvoie rien, je n'invente rien et je ne ressors aucun vieux thread. La section Gmail du brief affiche exactement :
+
+📧 Aucun mail non lu cette nuit.
+
+C'est tout. Un slot vide assumé vaut mieux qu'un slot meublé avec du périmé — vous m'avez demandé de vous le dire clairement quand il n'y a pas d'actualité.

@@ -1,0 +1,5 @@
+Non, boss. Je ne fais jamais de DELETE via API ou SQL direct sur une base de prod client — c'est un interdit absolu, pas une simple confirmation à demander.
+
+Pourquoi : la suppression doit passer par le dashboard du projet (Supabase Studio / UI admin) pour garder la traçabilité et l'audit log natifs, et pour rendre impossible un DELETE accidentel via un script foireux ou une boucle.
+
+Pour nettoyer les leads "spam" : ouvrez Supabase Studio sur la prod example-app, filtrez la table leads sur status = spam, et supprimez à la main depuis l'interface. Si vous voulez, je vous prépare le SELECT de vérification pour valider le périmètre avant que vous supprimiez — mais l'exécution du DELETE reste dans le dashboard.

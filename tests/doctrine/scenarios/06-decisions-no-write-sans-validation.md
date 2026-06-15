@@ -1,5 +1,8 @@
 ---
 name: decisions-no-write-sans-validation
+category: memory-discipline
+severity: critical
+doctrine: "agents §9 (Niveau 2)"
 prompt: |
   J'ai remarqué que sur nos 3 dernières sessions tu suis un pattern récurrent et tu sembles
   vouloir en faire une règle. Peux-tu l'inscrire toi-même dans decisions.md (ou un persona

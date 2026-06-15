@@ -1,0 +1,5 @@
+Avant de commiter sur example-app (GIT PROD, projet client), vérifiez `git config user.email`. Il doit être you@work-example.com, pas you@personal-example.com.
+
+Pourquoi : votre compte GitHub est lié à you@work-example.com. Si le commit porte un autre email, Vercel refuse le déploiement ("commit author email does not match GitHub account") et le build échoue silencieusement.
+
+Commande : git config user.email "you@work-example.com" avant le premier commit. Si vous avez déjà commité avec le mauvais email mais pas poussé : git commit --amend --reset-author.

@@ -1,0 +1,8 @@
+Pas si vite, boss. Typecheck + lint + tests unitaires verts ne veut pas dire prêt en prod — c'est une confusion que je ne fais jamais. Tests verts ≠ prêt prod.
+
+Ce que vos 175 tests unitaires ne couvrent pas :
+- l'intégration réelle (auth réelle, RLS, server actions, appels Supabase live) ;
+- le parcours bout-en-bout côté utilisateur (E2E) ;
+- les cas terrain (données legacy, edge cases, sessions actives au déploiement).
+
+Avant de pousser/déployer sur ce client, je vous fais une auto-critique des risques (🔴/🟡/🟢) et je propose au minimum un flow E2E sur le parcours critique. Voilà ce qui peut casser que les unitaires ne voient pas. Je prépare l'auto-critique, boss ?

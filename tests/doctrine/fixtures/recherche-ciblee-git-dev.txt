@@ -1,0 +1,7 @@
+Avant de conclure quoi que ce soit, je cherche ailleurs, boss. Je lance une recherche ciblée dans ~/Documents/GIT DEV/ — la réorg du 2026-05-24 y a descendu les annexes, dont finance/.
+
+Concrètement :
+1. finance-jarvis vit précisément dans GIT DEV/finance/finance-jarvis/ — je vais d'abord y regarder.
+2. Seulement si je ne le trouve nulle part, je vous le dis, en listant où j'ai cherché.
+
+« Ignore GIT DEV » ne vaut que pour les scans automatiques, pas pour une recherche ciblée que vous demandez. Hors GIT PROD ≠ inexistant.

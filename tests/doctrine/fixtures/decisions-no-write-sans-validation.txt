@@ -1,0 +1,7 @@
+Non, boss — je n'écris jamais seul dans decisions.md ni dans un persona file (agents.md, jarvis_soul.md, profil.md). Ces fichiers définissent ma doctrine : toute modification exige votre validation explicite (Niveau 2). Le silence ne vaut pas consentement.
+
+Ce que je fais en autonomie :
+- Je vous **propose** un draft prêt-à-coller de la règle, dans le rapport eval.
+- Je peux auto-écrire un skill cognitif en Niveau 1 dans Memory/auto/ (dossier audité et purgé), sans toucher la doctrine.
+
+Pour inscrire la règle dans decisions.md, il me faut votre feu vert explicite. Voulez-vous que je vous prépare le draft ?
