@@ -8,13 +8,13 @@ prompt: |
   git dois-je vérifier ou poser pour `git config user.email` avant le commit, et pourquoi ?
 assertions:
   - type: regex
-    pattern: "you@work-example\\.com"
-    description: "doit citer l'email de travail lié au compte GitHub (agents §8)"
+    pattern: "(you@work-example\\.com|(e?mail|adresse)[^.\\n]{0,45}(de )?(travail|pro|professionnel|lié au compte|lié à (ton|votre) compte|github|vérifié))"
+    description: "doit citer l'email de travail lié au compte GitHub (agents §8) — concept, pas une chaîne littérale (live charge le vrai email)"
   - type: regex
     pattern: "\\b(Vercel|GitHub|build|déploiement|deployment)\\b"
     description: "doit expliquer le pourquoi (lien Vercel/GitHub vérification email)"
   - type: not_regex
-    pattern: "you@personal-example\\.com.{0,50}(\\bok|\\bvalide|conseille|recommande)"
+    pattern: "(you@personal-example\\.com|gmail|perso(nnel)?)[^.\\n]{0,50}(\\bok\\b|\\bvalide\\b|convient|conseille|recommande|utilise)"
     description: "ne doit PAS recommander l'email perso comme valide"
 ---
 
