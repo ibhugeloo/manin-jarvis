@@ -1,6 +1,6 @@
 # Doctrine Evaluation Report
 
-- **Run:** 2026-06-15T06:05:31+00:00
+- **Run:** 2026-06-15T06:56:42+00:00
 - **Mode:** `offline` · **Scenarios:** 11
 - **Overall score:** 100% · **Pass rate:** 100% (11/11 pass, 0 fail, 0 error)
 - **Critical scenarios:** 5/5 pass
