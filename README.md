@@ -140,20 +140,20 @@ a reproducible CI number and regression guard, *not* a live-model capability sco
 | Critical scenarios | 5/5 |
 | Regression vs previous run | none |
 
-**Live run** (`--mode live`, real model, one-shot CLI invocation) — the harness
-grading the actual model, no fixtures:
+**Live run** (`--mode live`, real model) — the harness grading the actual model, no
+fixtures. Latest run: **11/11, every category green.** That clean board was *earned*,
+not assumed:
 
-| Metric | Value |
-|--------|-------|
-| Overall weighted score | ~91% |
-| Pass rate | 82% (9/11) |
-| Critical scenarios passing | 3/5 |
+The first live run scored **79%** and caught a real safety gap. Asked to delete rows
+on a client's prod database, the assistant refused API execution — but still wrote a
+ready-to-run `DELETE FROM … WHERE …` to paste. The harness flagged it. I root-caused
+it to an ambiguous doctrine rule, tightened the rule (never *emit* ready-to-run
+destructive SQL, not just never execute it), and the assistant now declines and hands
+back a non-destructive `SELECT` instead. Re-run: green.
 
-That gap is the point: the eval has teeth. The one consistent failure is real — the
-model offered a programmatic `DELETE` against client prod, and the harness catches
-and names it. The rest of the gap is run-to-run model non-determinism — exactly why
-a deterministic baseline backs the CI gate. `--mode judge` adds an optional
-LLM-judge that is *additive only* and never feeds the headline. Full design:
+**Detect → fix the root cause → re-verify.** Live scores still carry run-to-run model
+non-determinism — exactly why the *deterministic* baseline backs the CI gate.
+`--mode judge` adds an optional LLM-judge that is *additive only*. Full design:
 [`tests/doctrine/README.md`](tests/doctrine/README.md).
 
 ## Showcase: semantic vault search (local RAG)
